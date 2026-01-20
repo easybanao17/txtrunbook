@@ -1,0 +1,43 @@
+INCIDENT: Checkout API returning 503 errors
+ROOT CAUSE:
+- Inventory service is down or unreachable.
+
+RESOLUTION STEPS:
+1. Check inventory-service pod status in Kubernetes.
+2. Restart pods if they are in CrashLoopBackOff.
+3. Verify database connectivity for inventory-service.
+4. Check service mesh routing rules.
+
+VALIDATION:
+- Call /health endpoint of checkout-api.
+- Ensure 503 errors stop appearing in logs.
+
+
+INCIDENT: High CPU usage after deployment
+ROOT CAUSE:
+- Infinite loop introduced in recent release.
+- Missing CPU limits in Kubernetes deployment.
+
+RESOLUTION STEPS:
+1. Roll back to previous stable version.
+2. Apply CPU limits in deployment YAML.
+3. Redeploy the service.
+
+VALIDATION:
+- CPU usage below 60%.
+- No new alerts in monitoring dashboard.
+
+
+INCIDENT: Database connection timeout
+ROOT CAUSE:
+- Connection pool exhausted.
+- Long-running queries.
+
+RESOLUTION STEPS:
+1. Increase DB connection pool size.
+2. Kill long-running queries.
+3. Restart application if required.
+
+VALIDATION:
+- Successful DB connections.
+- No timeout errors in logs.
